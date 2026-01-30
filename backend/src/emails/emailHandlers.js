@@ -3,7 +3,7 @@ import { createWelcomeEmailTemplate } from "../emails/emailTemplates.js";
 
 export const sendWelcomeEmail = async (email, name, clientURL) => {
   const { data, error } = await resendClient.emails.send({
-    from: `${sender.name} <${sender.email}>`,
+    from: sender.email,
     to: email,
     subject: "Welcome to Chatify!",
     html: createWelcomeEmailTemplate(name, clientURL),
