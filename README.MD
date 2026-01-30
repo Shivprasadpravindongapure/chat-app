@@ -2,6 +2,9 @@
 
 A modern full-stack chat application with real-time messaging, authentication, and beautiful UI.
 
+## 🌐 **Live Demo**
+**🚀 Try it now:** [https://chat-app-eight-amber.vercel.app](https://chat-app-eight-amber.vercel.app)
+
 ![Demo App](/frontend/public/screenshot-for-readme.png)
 
 ## ✨ Features
@@ -44,6 +47,9 @@ A modern full-stack chat application with real-time messaging, authentication, a
 - **Arcjet** - Rate limiting & security
 
 ## 🚀 Quick Start
+
+### 🌐 **Try Live Demo First**
+**🚀 [Live Application](https://chat-app-eight-amber.vercel.app)** - No installation required!
 
 ### Prerequisites
 - Node.js 20+
@@ -246,3 +252,8 @@ If you have any questions or need help, feel free to:
 ---
 
 **⭐ Give this repo a star if it helped you!**
+
+## 🌐 **Live Demo**
+**🚀 Try the live application:** [https://chat-app-eight-amber.vercel.app](https://chat-app-eight-amber.vercel.app)
+
+*Note: Backend deployed on Railway, Frontend on Vercel*
