@@ -20,14 +20,10 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// make ready for deployment
-if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-  app.get("*", (_, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
+// Health check endpoint
+app.get("/health", (_, res) => {
+  res.status(200).json({ status: "OK", message: "Chatify Backend is running" });
+});
 
 server.listen(PORT, () => {
   console.log("Server running on port: " + PORT);

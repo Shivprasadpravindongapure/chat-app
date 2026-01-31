@@ -11,7 +11,7 @@ export const ENV = {
   MONGO_URI: process.env.MONGO_URI || "mongodb+srv://prasaddongapure7660_db_user:heW0aNcTON7pWicP@cluster0.scueswm.mongodb.net/chatify_db?appName=Cluster0",
   JWT_SECRET: process.env.JWT_SECRET || "myjwtsecret",
   NODE_ENV: process.env.NODE_ENV || "development",
-  CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
+  CLIENT_URL: process.env.CLIENT_URL || "https://your-vercel-app.vercel.app",
   RESEND_API_KEY: process.env.RESEND_API_KEY || "re_j8J4NXot_84EpxHvjaN6Mkh1cJ7ApqzmA",
   EMAIL_FROM: process.env.EMAIL_FROM || "onboarding@resend.dev",
   EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME || "prasaddongapure7660@gmail.com",
