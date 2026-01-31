@@ -30,7 +30,17 @@ app.get("/socket-test", (_, res) => {
   res.status(200).json({ 
     status: "OK", 
     message: "Socket endpoint is available",
-    socketUrl: "/socket.io/"
+    socketUrl: "/socket.io/",
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Socket status endpoint
+app.get("/socket-status", (_, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    message: "Socket.io server is running",
+    activeConnections: "Check server logs for connection count"
   });
 });
 
