@@ -25,6 +25,15 @@ app.get("/health", (_, res) => {
   res.status(200).json({ status: "OK", message: "Chatify Backend is running" });
 });
 
+// Socket connection test endpoint
+app.get("/socket-test", (_, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    message: "Socket endpoint is available",
+    socketUrl: "/socket.io/"
+  });
+});
+
 server.listen(PORT, () => {
   console.log("Server running on port: " + PORT);
   connectDB();
