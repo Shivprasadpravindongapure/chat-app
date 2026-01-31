@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatify API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #28a745;
+        }
+        .error {
+            background: #dc3545;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #555;
+            border-radius: 3px;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Chatify API Test</h1>
+    
+    <div class="test-section">
+        <h2>1️⃣ Test Signup</h2>
+        <input type="text" id="fullName" placeholder="Full Name" value="Test User">
+        <input type="email" id="email" placeholder="Email" value="test@example.com">
+        <input type="password" id="password" placeholder="Password" value="password123">
+        <button onclick="testSignup()">Test Signup</button>
+        <div id="signupResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2️⃣ Test Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" value="test@example.com">
+        <input type="password" id="loginPassword" placeholder="Password" value="password123">
+        <button onclick="testLogin()">Test Login</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3️⃣ Test Auth Check</h2>
+        <button onclick="testAuthCheck()">Test Auth Check</button>
+        <div id="authCheckResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4️⃣ Test Logout</h2>
+        <button onclick="testLogout()">Test Logout</button>
+        <div id="logoutResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5️⃣ Test Socket Connection</h2>
+        <button onclick="testSocket()">Test Socket</button>
+        <div id="socketResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001/api';
+        const SOCKET_URL = 'http://localhost:3001';
+
+        async function testSignup() {
+            const result = document.getElementById('signupResult');
+            try {
+                const response = await fetch(`${API_BASE}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        fullName: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Success: ${JSON.stringify(data)}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Error: ${data.message}`;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Network Error: ${error.message}`;
+            }
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('loginResult');
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        email: document.getElementById('loginEmail').value,
+                        password: document.getElementById('loginPassword').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Success: ${JSON.stringify(data)}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Error: ${data.message}`;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Network Error: ${error.message}`;
+            }
+        }
+
+        async function testAuthCheck() {
+            const result = document.getElementById('authCheckResult');
+            try {
+                const response = await fetch(`${API_BASE}/auth/check`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Authenticated: ${JSON.stringify(data)}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Not Authenticated: ${data.message}`;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Network Error: ${error.message}`;
+            }
+        }
+
+        async function testLogout() {
+            const result = document.getElementById('logoutResult');
+            try {
+                const response = await fetch(`${API_BASE}/auth/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Success: ${JSON.stringify(data)}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Error: ${data.message}`;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Network Error: ${error.message}`;
+            }
+        }
+
+        function testSocket() {
+            const result = document.getElementById('socketResult');
+            try {
+                const socket = io(SOCKET_URL, {
+                    withCredentials: true
+                });
+
+                socket.on('connect', () => {
+                    result.className = 'result success';
+                    result.textContent = `✅ Socket Connected: ${socket.id}`;
+                });
+
+                socket.on('connect_error', (error) => {
+                    result.className = 'result error';
+                    result.textContent = `❌ Socket Error: ${error.message}`;
+                });
+
+                socket.on('disconnect', () => {
+                    result.className = 'result error';
+                    result.textContent = `❌ Socket Disconnected`;
+                });
+
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Socket Error: ${error.message}`;
+            }
+        }
+    </script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</body>
+</html>
