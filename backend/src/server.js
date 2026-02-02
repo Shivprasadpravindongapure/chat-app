@@ -1,3 +1,4 @@
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -20,29 +21,14 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Health check endpoint
-app.get("/health", (_, res) => {
-  res.status(200).json({ status: "OK", message: "Chatify Backend is running" });
-});
+// make ready for deployment
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-// Socket connection test endpoint
-app.get("/socket-test", (_, res) => {
-  res.status(200).json({ 
-    status: "OK", 
-    message: "Socket endpoint is available",
-    socketUrl: "/socket.io/",
-    timestamp: new Date().toISOString()
+  app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
-});
-
-// Socket status endpoint
-app.get("/socket-status", (_, res) => {
-  res.status(200).json({ 
-    status: "OK", 
-    message: "Socket.io server is running",
-    activeConnections: "Check server logs for connection count"
-  });
-});
+}
 
 server.listen(PORT, () => {
   console.log("Server running on port: " + PORT);
